@@ -6,12 +6,12 @@ import java.time.LocalDate;
 import java.time.Period;
 
 public class Person {
-    private Long id;
+    private long id;
     private String firstName;
     private String lastName;
     private String patronymic;
     private Gender gender;
-    private Long passportSerialNumber;
+    private long passportSerialNumber;
     private LocalDate dateOfBirth;
 
     public Person(Long id, String firstName, String lastName, String patronymic, Gender gender,
@@ -25,11 +25,11 @@ public class Person {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -65,11 +65,11 @@ public class Person {
         this.gender = gender;
     }
 
-    public Long getPassportSerialNumber() {
+    public long getPassportSerialNumber() {
         return passportSerialNumber;
     }
 
-    public void setPassportSerialNumber(Long passportSerialNumber) {
+    public void setPassportSerialNumber(long passportSerialNumber) {
         this.passportSerialNumber = passportSerialNumber;
     }
 
