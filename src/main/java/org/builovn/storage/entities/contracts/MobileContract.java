@@ -8,7 +8,7 @@ public class MobileContract extends Contract{
     private int messages;
     private int gigaBytes;
 
-    public MobileContract(long id, LocalDate dateStart, LocalDate dateEnd, long number, Person owner, int minutes,
+    public MobileContract(int id, LocalDate dateStart, LocalDate dateEnd, int number, Person owner, int minutes,
                           int messages, int gigaBytes){
         super(id, dateStart, dateEnd, number, owner);
         this.minutes = minutes;

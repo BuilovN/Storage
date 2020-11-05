@@ -6,7 +6,7 @@ import java.time.LocalDate;
 public class TVContract extends Contract {
     private ChannelPackage channelPackage;
 
-    public TVContract(long id, LocalDate dateStart, LocalDate dateEnd, long number, Person owner, ChannelPackage channelPackage) {
+    public TVContract(int id, LocalDate dateStart, LocalDate dateEnd, int number, Person owner, ChannelPackage channelPackage) {
         super(id, dateStart, dateEnd, number, owner);
         this.channelPackage = channelPackage;
     }
@@ -18,4 +18,5 @@ public class TVContract extends Contract {
     public void setChannelPackage(ChannelPackage channelPackage) {
         this.channelPackage = channelPackage;
     }
+
 }

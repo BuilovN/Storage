@@ -4,13 +4,13 @@ import org.builovn.storage.entities.persons.Person;
 import java.time.LocalDate;
 
 public class Contract {
-    private long id;
+    private int id;
     private LocalDate dateStart;
     private LocalDate dateEnd;
-    private long number;
+    private int number;
     private Person owner;
 
-    public Contract(long id, LocalDate dateStart, LocalDate dateEnd, long number, Person owner) {
+    public Contract(int id, LocalDate dateStart, LocalDate dateEnd, int number, Person owner) {
         this.id = id;
         this.dateStart = dateStart;
         this.dateEnd = dateEnd;
@@ -18,11 +18,11 @@ public class Contract {
         this.owner = owner;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -42,11 +42,11 @@ public class Contract {
         this.dateEnd = dateEnd;
     }
 
-    public long getNumber() {
+    public int getNumber() {
         return number;
     }
 
-    public void setNumber(long number) {
+    public void setNumber(int number) {
         this.number = number;
     }
 

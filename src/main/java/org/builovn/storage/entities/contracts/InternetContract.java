@@ -5,7 +5,7 @@ import java.time.LocalDate;
 
 public class InternetContract extends Contract {
     private float networkSpeed;
-    public InternetContract(long id, LocalDate dateStart, LocalDate dateEnd, long number, Person owner, int networkSpeed){
+    public InternetContract(int id, LocalDate dateStart, LocalDate dateEnd, int number, Person owner, int networkSpeed){
         super(id, dateStart, dateEnd, number, owner);
         this.networkSpeed = networkSpeed;
     }

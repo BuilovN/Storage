@@ -1,12 +1,10 @@
 package org.builovn.storage.entities.persons;
 
-import jdk.jshell.execution.LoaderDelegate;
-
 import java.time.LocalDate;
 import java.time.Period;
 
 public class Person {
-    private long id;
+    private int id;
     private String firstName;
     private String lastName;
     private String patronymic;
@@ -14,8 +12,8 @@ public class Person {
     private long passportSerialNumber;
     private LocalDate dateOfBirth;
 
-    public Person(Long id, String firstName, String lastName, String patronymic, Gender gender,
-                  Long passportSerialNumber, LocalDate dateOfBirth) {
+    public Person(int id, String firstName, String lastName, String patronymic, Gender gender,
+                  long passportSerialNumber, LocalDate dateOfBirth) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -25,11 +23,11 @@ public class Person {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
