@@ -3,11 +3,28 @@ package org.builovn.storage.entities.contracts;
 import org.builovn.storage.entities.persons.Person;
 import java.time.LocalDate;
 
+/**
+ *  Класс описывающий контракт на мобильную связь, наследуюемый от {@link Contract}.
+ */
 public class MobileContract extends Contract{
+    /** Количество минут. */
     private int minutes;
+    /** Количество SMS. */
     private int messages;
+    /** Количество ГБайт. */
     private int gigaBytes;
 
+    /**
+     * Конструктор класса MobileContract.
+     * @param id id контракта.
+     * @param dateStart Дата начала контракта.
+     * @param dateEnd Дата окончания контракта.
+     * @param number Номер контракта.
+     * @param owner Владелец контракта.
+     * @param minutes Количество минут.
+     * @param messages Количество SMS.
+     * @param gigaBytes Количество ГБайт.
+     */
     public MobileContract(int id, LocalDate dateStart, LocalDate dateEnd, int number, Person owner, int minutes,
                           int messages, int gigaBytes){
         super(id, dateStart, dateEnd, number, owner);

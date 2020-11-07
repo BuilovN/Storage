@@ -5,4 +5,5 @@ public interface IRepository<T> {
     T set(int index, T element);
     T remove(int index);
     T get(int index);
+    int getSize();
 }
