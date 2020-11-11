@@ -19,7 +19,7 @@ public class InternetContract extends Contract {
      * @param owner Владелец контракта.
      * @param networkSpeed Скорость интернета.
      */
-    public InternetContract(int id, LocalDate dateStart, LocalDate dateEnd, int number, Person owner, int networkSpeed){
+    public InternetContract(int id, LocalDate dateStart, LocalDate dateEnd, int number, Person owner, float networkSpeed){
         super(id, dateStart, dateEnd, number, owner);
         this.networkSpeed = networkSpeed;
     }
