@@ -1,8 +1,13 @@
 package org.builovn.storage.repositories;
 
 import org.builovn.storage.entities.contracts.Contract;
+import org.builovn.storage.sorters.ISorter;
 
+import java.util.Comparator;
 import java.util.Optional;
+import java.util.Spliterator;
+import java.util.function.Predicate;
+
 /**
  * Данный класс используется для того, чтобы хранить объекты типа Contract
 */
@@ -172,6 +177,43 @@ public class ContractRepository implements IRepository<Contract> {
         return -1;
     }
 
+    /**
+     * Метод для нахождения элемента по определенным критериям. Критерии задаются через функциональный интерфейс Predicate.
+     * @param predicate предикат, содержащий условия поиска элемента.
+     * @return возвращает Optional объект с контрактом внутри, либо же пустой Optional, если такого контракта не нашлось.
+     */
+    public Optional<Contract> find(Predicate<Contract> predicate){
+        for (int i = 0; i < this.getSize(); i++){
+            if(predicate.test(elements[i])){
+                return Optional.of(elements[i]);
+            }
+        }
+        return Optional.empty();
+    }
+
+    /**
+     * Метод для получения sub-репозитория, элементы которого удовлетворят критериям, переданными через Predicate.
+     * @param predicate предикат, содержащий условия поиска элемента.
+     * @return экземпляр класса ContractRepository, содержащий все подходящие элементы.
+     */
+    public ContractRepository findAll(Predicate<Contract> predicate){
+        ContractRepository repository = new ContractRepository();
+        for (int i = 0; i < this.getSize(); i++){
+            if(predicate.test(elements[i])){
+                repository.add(elements[i]);
+            }
+        }
+        return repository;
+    }
+
+    /**
+     * Метод для сортировки репозитория.
+     * @param sorter
+     * @param comparator
+     */
+    public void sort(ISorter sorter, Comparator<Contract> comparator){
+        sorter.sort(this, comparator);
+    }
     /**
      * Метод для получения количества элементов в репозитории.
      * @return возращает количество элементов в репозитории.
