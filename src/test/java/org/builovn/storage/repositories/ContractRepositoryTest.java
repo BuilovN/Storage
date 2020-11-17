@@ -153,7 +153,7 @@ public class ContractRepositoryTest {
         sortedRepository.add(createMobileContract()); // id - 3
 
         ISorter sorter = new QuickSorter();
-        sorter.sort(repository, (obj1, obj2) -> Integer.compare(obj1.getId(), obj2.getId()));
+        repository.sort((obj1, obj2) -> Integer.compare(obj1.getId(), obj2.getId()));
 
         for(int i = 0; i < repository.getSize(); i++){
             assertEquals(repository.get(i).getId(), sortedRepository.get(i).getId());

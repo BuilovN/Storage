@@ -2,6 +2,7 @@ package org.builovn.storage.repositories;
 
 import org.builovn.storage.entities.contracts.Contract;
 import org.builovn.storage.sorters.ISorter;
+import org.builovn.storage.sorters.QuickSorter;
 
 import java.util.Comparator;
 import java.util.Optional;
@@ -16,8 +17,12 @@ public class ContractRepository implements IRepository<Contract> {
     private Contract[] elements;
     /** Количество элементов в массиве. */
     private int size;
+    /** Сортировщик репозитория */
+    private ISorter sorter;
     /** Стандартный размер создаваемого массива. */
     private static final int DEFAULT_CAPACITY = 10;
+    /** Стандартный сортировщик репозитория */
+    private static final ISorter DEFAULT_SORTER = new QuickSorter();
 
     /** Конструктор для создания репозитория с массивом стандартного размера. Не требует никаких параметров. */
     public ContractRepository(){
@@ -32,9 +37,18 @@ public class ContractRepository implements IRepository<Contract> {
         try {
             this.elements = new Contract[capacity];
             this.size = 0;
+            this.sorter = DEFAULT_SORTER;
         } catch (NegativeArraySizeException e) {
             throw new IllegalArgumentException("Incorrect capacity: " + capacity);
         }
+    }
+
+    /**
+     * Метод, для измения сортировщика репозитория.
+     * @param sorter сортировщик.
+     */
+    public void setSorter(ISorter sorter){
+        this.sorter = sorter;
     }
 
     /**
@@ -208,10 +222,9 @@ public class ContractRepository implements IRepository<Contract> {
 
     /**
      * Метод для сортировки репозитория.
-     * @param sorter
-     * @param comparator
+     * @param comparator Компаратор для сравнения элементов репозитория.
      */
-    public void sort(ISorter sorter, Comparator<Contract> comparator){
+    public void sort(Comparator<Contract> comparator){
         sorter.sort(this, comparator);
     }
     /**
