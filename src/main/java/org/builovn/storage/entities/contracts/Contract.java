@@ -5,6 +5,7 @@ import java.time.LocalDate;
 
 /** Абстрактный класс, содержащий общую информацию для всех контрактов. */
 public abstract class Contract {
+    static int idCounter = 0;
     /** id контракта. */
     private int id;
     /** Дата начала контракта. */
@@ -70,5 +71,11 @@ public abstract class Contract {
 
     public void setOwner(Person owner) {
         this.owner = owner;
+    }
+
+    public static int nextId(){
+        int id = idCounter;
+        idCounter++;
+        return id;
     }
 }

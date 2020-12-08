@@ -7,6 +7,7 @@ import java.time.Period;
  * Класс, описывающий человека(Клиента).
  */
 public class Person {
+    static int idCounter = 0;
     /** id человека. */
     private int id;
     /** Имя человека. */
@@ -107,5 +108,11 @@ public class Person {
         LocalDate currentDate = LocalDate.now();
         Period diffTime = Period.between(this.dateOfBirth, currentDate);
         return diffTime.getYears();
+    }
+
+    public static int nextId(){
+        int id = idCounter;
+        idCounter++;
+        return id;
     }
 }
