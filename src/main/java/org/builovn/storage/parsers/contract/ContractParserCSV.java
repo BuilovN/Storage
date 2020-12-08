@@ -13,8 +13,17 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Класс, позволяющий считать контракты из CSV файла в репозиторий.
+ */
 public class ContractParserCSV implements IParser<Contract> {
 
+    /**
+     * Считывает контракты из переданного файла в переданный репозиторий.
+     * @param repository репозиторий для записис контрактов.
+     * @param filePath путь до файла.
+     * @throws IOException исключение, выбрасываемое при ошибке чтения/записи файла.
+     */
     @Override
     public void fromFileToRepository(IRepository<Contract> repository, String filePath) throws IOException {
         String line;
@@ -34,6 +43,14 @@ public class ContractParserCSV implements IParser<Contract> {
         }
     }
 
+    /**
+     * Вычленяет из строки CSV элементы, относящиеся к {@link Person} и создает из них экземпляр класса.
+     * @param line CSV строка.
+     * @param splitBy символ разделения элементов.
+     * @param dateTimeFormat формат даты.
+     * @return экземпляр класса Person.
+     * @throws ContractCSVParserException исключение, выбрасываемое при ошибке парсинга строки.
+     */
     private Person parsePersonByLine(String line, String splitBy, DateTimeFormatter dateTimeFormat) throws ContractCSVParserException {
         String[] entity = line.split(splitBy);
         try{
@@ -57,6 +74,14 @@ public class ContractParserCSV implements IParser<Contract> {
         }
     }
 
+    /**
+     * Вычленяет из строки CSV элементы, относящиеся к {@link Contract} и создает из них экземпляр класса.
+     * @param line CSV строка.
+     * @param splitBy символ разделения элементов.
+     * @param dateTimeFormat формат даты.
+     * @return экземпляр класса Contract.
+     * @throws ContractCSVParserException исключение, выбрасываемое при ошибке парсинга строки.
+     */
     private Contract parseContractByLine(String line, String splitBy, DateTimeFormatter dateTimeFormat) throws ContractCSVParserException {
         Person person = parsePersonByLine(line, splitBy, dateTimeFormat);
         String[] entity = line.split(splitBy);
