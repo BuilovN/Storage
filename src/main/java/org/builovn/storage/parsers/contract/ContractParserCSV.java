@@ -4,6 +4,7 @@ import org.builovn.storage.entities.contracts.*;
 import org.builovn.storage.entities.persons.Gender;
 import org.builovn.storage.entities.persons.Person;
 import org.builovn.storage.parsers.IParser;
+import org.builovn.storage.repositories.ContractRepository;
 import org.builovn.storage.repositories.IRepository;
 
 import java.io.BufferedReader;
@@ -12,6 +13,7 @@ import java.io.IOException;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 /**
  * Класс, позволяющий считать контракты из CSV файла в репозиторий.
@@ -32,8 +34,11 @@ public class ContractParserCSV implements IParser<Contract> {
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             while ((line = br.readLine()) != null) {
                 Contract contract;
+                Optional<Person> person;
                 try {
                     contract = parseContractByLine(line, splitBy, dateTimeFormat);
+                    person = checkIfPersonExists(repository, contract.getOwner().getPassportSerialNumber());
+                    person.ifPresent(contract::setOwner);
                 } catch (ContractCSVParserException e){
                     e.printStackTrace();
                     continue;
@@ -41,6 +46,19 @@ public class ContractParserCSV implements IParser<Contract> {
                 repository.add(contract);
             }
         }
+    }
+
+    /**
+     * Возвращает Optional объект с Person внутри в том случае, если объект класса Person с такими же паспортными
+     * данными был найден в репозитории, либо же пустой объект Optional в противном случае.
+     * @param repository репозиторий, в котором будет происходить поиск
+     * @param passportSerialNumber паспортрные данные, по которым будет осуществляться поиск
+     * @return Optional объект с объектом Person
+     */
+    private Optional<Person> checkIfPersonExists(IRepository<Contract> repository, long passportSerialNumber){
+        Optional<Contract> contract = repository.find(element -> element.getOwner().getPassportSerialNumber()
+                == passportSerialNumber);
+        return contract.isPresent() ? Optional.of(contract.get().getOwner()) : Optional.empty();
     }
 
     /**
