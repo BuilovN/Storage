@@ -35,7 +35,7 @@ public class ContractParserCSVTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        assertEquals(contractRepository.getSize(), 4);
+        assertEquals(contractRepository.getSize(), 3);
     }
 
     /**

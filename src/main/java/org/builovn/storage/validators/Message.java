@@ -1,5 +1,8 @@
 package org.builovn.storage.validators;
 
+/**
+ * Класс, содержащий информацию о резульатате какой-либо проверки. Оно содержит сообщение и статус проверки.
+ */
 public class Message {
     private String info;
     private Status status;

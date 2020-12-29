@@ -6,6 +6,10 @@ import org.builovn.storage.entities.persons.Person;
 import org.builovn.storage.parsers.IParser;
 import org.builovn.storage.repositories.ContractRepository;
 import org.builovn.storage.repositories.IRepository;
+import org.builovn.storage.validators.IValidator;
+import org.builovn.storage.validators.Message;
+import org.builovn.storage.validators.Status;
+import org.builovn.storage.validators.contracts.*;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -13,6 +17,8 @@ import java.io.IOException;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -20,6 +26,27 @@ import java.util.Optional;
  */
 public class ContractParserCSV implements IParser<Contract> {
 
+    private static List<IContractValidator<Contract>> validators = new ArrayList<>();
+    static {
+        validators.add(new NameValidator());
+        validators.add(new NetworkSpeedValidator());
+        validators.add(new DatesValidator());
+        validators.add(new MinutesValidator());
+        validators.add(new NumberValidator());
+    }
+
+    private boolean validateContract(Contract contract){
+        for (IContractValidator<Contract> validator : validators){
+            if(contract.getClass() == validator.getContractType() || validator.getContractType() == Contract.class) {
+                Message message = validator.validate(contract);
+                System.out.println(message);
+                if(message.getStatus().equals(Status.ERROR)){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
     /**
      * Считывает контракты из переданного файла в переданный репозиторий.
      * @param repository репозиторий для записис контрактов.
@@ -39,6 +66,8 @@ public class ContractParserCSV implements IParser<Contract> {
                     contract = parseContractByLine(line, splitBy, dateTimeFormat);
                     person = checkIfPersonExists(repository, contract.getOwner().getPassportSerialNumber());
                     person.ifPresent(contract::setOwner);
+                    if(!validateContract(contract))
+                        continue;
                 } catch (ContractCSVParserException e){
                     e.printStackTrace();
                     continue;
