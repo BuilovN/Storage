@@ -1,5 +1,6 @@
 package org.builovn.storage.validators.contracts;
 
+import org.builovn.storage.DI.annotation.Component;
 import org.builovn.storage.entities.contracts.Contract;
 import org.builovn.storage.entities.contracts.MobileContract;
 import org.builovn.storage.validators.Message;
@@ -8,6 +9,8 @@ import org.builovn.storage.validators.Status;
 /**
  * Валидатор, отвечающий за проверку значения минут.
  */
+
+@Component
 public class MinutesValidator implements IContractValidator<Contract> {
     private final static Class<MobileContract> contractType = MobileContract.class;
 

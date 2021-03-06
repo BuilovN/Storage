@@ -1,5 +1,7 @@
 package org.builovn.storage.parsers.contracts;
 
+import org.builovn.storage.DI.Injector;
+import org.builovn.storage.DI.InjectorException;
 import org.builovn.storage.parsers.contract.ContractParserCSV;
 import org.builovn.storage.repositories.ContractRepository;
 import org.junit.Before;
@@ -21,6 +23,11 @@ public class ContractParserCSVTest {
     @Before
     public void setUp(){
         contractRepository = new ContractRepository();
+        try{
+            Injector.inject(contractRepository);
+        } catch (InjectorException e){
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -29,6 +36,12 @@ public class ContractParserCSVTest {
     @Test
     public void testAmountOfParsedContracts(){
         ContractParserCSV contractParserCSV = new ContractParserCSV();
+
+        try{
+            Injector.inject(contractParserCSV);
+        } catch (InjectorException e){
+            e.printStackTrace();
+        }
         String fileName = "java.csv";
         try {
             contractParserCSV.fromFileToRepository(contractRepository, workingDir + "/files/" + fileName);

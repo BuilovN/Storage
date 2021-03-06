@@ -2,6 +2,8 @@ package org.builovn.storage.repositories;
 
 import static org.junit.Assert.assertEquals;
 
+import org.builovn.storage.DI.Injector;
+import org.builovn.storage.DI.InjectorException;
 import org.builovn.storage.sorters.BubbleSorter;
 import org.builovn.storage.sorters.ISorter;
 import org.builovn.storage.sorters.QuickSorter;
@@ -25,6 +27,12 @@ public class ContractRepositoryTest {
     @Before
     public void setUp(){
         repository = new ContractRepository();
+        try{
+            Injector.inject(repository);
+        } catch (InjectorException e){
+            e.printStackTrace();
+        }
+        System.out.println("");
     }
 
     /**
@@ -143,6 +151,7 @@ public class ContractRepositoryTest {
      */
     @Test
     public void sortTest(){
+
         repository.add(createMobileContract()); //id - 3
         repository.add(createInternetContract()); //id - 1
         repository.add(createTVContract()); //id - 2
@@ -151,8 +160,6 @@ public class ContractRepositoryTest {
         sortedRepository.add(createInternetContract()); // id - 1
         sortedRepository.add(createTVContract()); // id - 2
         sortedRepository.add(createMobileContract()); // id - 3
-
-        ISorter sorter = new QuickSorter();
         repository.sort((obj1, obj2) -> Integer.compare(obj1.getId(), obj2.getId()));
 
         for(int i = 0; i < repository.getSize(); i++){

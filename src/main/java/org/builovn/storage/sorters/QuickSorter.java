@@ -1,9 +1,11 @@
 package org.builovn.storage.sorters;
 
+import org.builovn.storage.DI.annotation.Component;
 import org.builovn.storage.repositories.IRepository;
 
 import java.util.Comparator;
 
+@Component
 public class QuickSorter implements ISorter{
 
     @Override

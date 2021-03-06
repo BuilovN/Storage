@@ -1,5 +1,6 @@
 package org.builovn.storage.validators.contracts;
 
+import org.builovn.storage.DI.annotation.Component;
 import org.builovn.storage.entities.contracts.Contract;
 import org.builovn.storage.entities.contracts.InternetContract;
 import org.builovn.storage.validators.Message;
@@ -8,6 +9,8 @@ import org.builovn.storage.validators.Status;
 /**
  * Валидатор, который отвечает за проверку имени владельца контракта.
  */
+
+@Component
 public class NameValidator implements IContractValidator<Contract> {
     private static final Class<Contract> contractType = Contract.class;
 

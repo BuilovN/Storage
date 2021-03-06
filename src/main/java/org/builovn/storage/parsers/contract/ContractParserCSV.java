@@ -1,5 +1,6 @@
 package org.builovn.storage.parsers.contract;
 
+import org.builovn.storage.DI.annotation.Autowired;
 import org.builovn.storage.entities.contracts.*;
 import org.builovn.storage.entities.persons.Gender;
 import org.builovn.storage.entities.persons.Person;
@@ -26,13 +27,11 @@ import java.util.Optional;
  */
 public class ContractParserCSV implements IParser<Contract> {
 
+    @Autowired(clazz = IContractValidator.class)
     private static List<IContractValidator<Contract>> validators = new ArrayList<>();
-    static {
-        validators.add(new NameValidator());
-        validators.add(new NetworkSpeedValidator());
-        validators.add(new DatesValidator());
-        validators.add(new MinutesValidator());
-        validators.add(new NumberValidator());
+
+    public List<IContractValidator<Contract>> getValidators(){
+        return validators;
     }
 
     private boolean validateContract(Contract contract){

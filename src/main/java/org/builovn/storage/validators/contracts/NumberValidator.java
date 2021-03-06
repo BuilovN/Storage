@@ -1,5 +1,6 @@
 package org.builovn.storage.validators.contracts;
 
+import org.builovn.storage.DI.annotation.Component;
 import org.builovn.storage.entities.contracts.Contract;
 import org.builovn.storage.validators.Message;
 import org.builovn.storage.validators.Status;
@@ -7,6 +8,8 @@ import org.builovn.storage.validators.Status;
 /**
  * Валидатор, отвечающий за проверку номера контракта.
  */
+
+@Component
 public class NumberValidator implements IContractValidator<Contract> {
     private static final Class<Contract> contractType = Contract.class;
 

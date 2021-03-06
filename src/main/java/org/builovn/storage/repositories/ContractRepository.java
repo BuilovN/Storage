@@ -1,5 +1,6 @@
 package org.builovn.storage.repositories;
 
+import org.builovn.storage.DI.annotation.Autowired;
 import org.builovn.storage.entities.contracts.Contract;
 import org.builovn.storage.sorters.ISorter;
 import org.builovn.storage.sorters.QuickSorter;
@@ -18,6 +19,7 @@ public class ContractRepository implements IRepository<Contract> {
     /** Количество элементов в массиве. */
     private int size;
     /** Сортировщик репозитория */
+    @Autowired
     private ISorter sorter;
     /** Стандартный размер создаваемого массива. */
     private static final int DEFAULT_CAPACITY = 10;
@@ -37,7 +39,6 @@ public class ContractRepository implements IRepository<Contract> {
         try {
             this.elements = new Contract[capacity];
             this.size = 0;
-            this.sorter = DEFAULT_SORTER;
         } catch (NegativeArraySizeException e) {
             throw new IllegalArgumentException("Incorrect capacity: " + capacity);
         }
@@ -234,5 +235,9 @@ public class ContractRepository implements IRepository<Contract> {
     @Override
     public int getSize() {
         return size;
+    }
+
+    public ISorter getSorter(){
+        return sorter;
     }
 }

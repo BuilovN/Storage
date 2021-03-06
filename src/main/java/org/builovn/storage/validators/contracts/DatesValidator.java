@@ -1,5 +1,6 @@
 package org.builovn.storage.validators.contracts;
 
+import org.builovn.storage.DI.annotation.Component;
 import org.builovn.storage.entities.contracts.Contract;
 import org.builovn.storage.validators.Message;
 import org.builovn.storage.validators.Status;
@@ -9,6 +10,7 @@ import java.time.LocalDate;
 /**
  * Валидатор, отвечающий за проверку дат в контракте.
  */
+@Component
 public class DatesValidator implements IContractValidator<Contract>{
     private static final Class<Contract> contractType = Contract.class;
 
