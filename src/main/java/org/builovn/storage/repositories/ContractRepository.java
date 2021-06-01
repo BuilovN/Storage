@@ -5,6 +5,7 @@ import org.builovn.storage.entities.contracts.Contract;
 import org.builovn.storage.sorters.ISorter;
 import org.builovn.storage.sorters.QuickSorter;
 
+import javax.xml.bind.annotation.*;
 import java.util.Comparator;
 import java.util.Optional;
 import java.util.Spliterator;
@@ -13,17 +14,25 @@ import java.util.function.Predicate;
 /**
  * Данный класс используется для того, чтобы хранить объекты типа Contract
 */
+@XmlRootElement(name="repository")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class ContractRepository implements IRepository<Contract> {
     /** Хранит объекты в массиве. */
+    @XmlElementWrapper(name = "contracts")
+    @XmlElement(name = "contract")
     private Contract[] elements;
     /** Количество элементов в массиве. */
+    @XmlElement(name = "size")
     private int size;
     /** Сортировщик репозитория */
     @Autowired
+    @XmlTransient
     private ISorter sorter;
     /** Стандартный размер создаваемого массива. */
+    @XmlTransient
     private static final int DEFAULT_CAPACITY = 10;
     /** Стандартный сортировщик репозитория */
+    @XmlTransient
     private static final ISorter DEFAULT_SORTER = new QuickSorter();
 
     /** Конструктор для создания репозитория с массивом стандартного размера. Не требует никаких параметров. */
@@ -39,6 +48,7 @@ public class ContractRepository implements IRepository<Contract> {
         try {
             this.elements = new Contract[capacity];
             this.size = 0;
+            this.sorter = DEFAULT_SORTER;
         } catch (NegativeArraySizeException e) {
             throw new IllegalArgumentException("Incorrect capacity: " + capacity);
         }

@@ -1,6 +1,8 @@
 package org.builovn.storage.entities.contracts;
 
 import org.builovn.storage.entities.persons.Person;
+
+import javax.xml.bind.annotation.XmlElement;
 import java.time.LocalDate;
 
 /**
@@ -8,6 +10,7 @@ import java.time.LocalDate;
  */
 public class InternetContract extends Contract {
     /** Скорость интернета. */
+    @XmlElement(name = "networkSpeed")
     private float networkSpeed;
 
     /**
@@ -22,6 +25,10 @@ public class InternetContract extends Contract {
     public InternetContract(int id, LocalDate dateStart, LocalDate dateEnd, int number, Person owner, float networkSpeed){
         super(id, dateStart, dateEnd, number, owner);
         this.networkSpeed = networkSpeed;
+    }
+
+    public InternetContract(){
+        super();
     }
 
     public float getNetworkSpeed() {

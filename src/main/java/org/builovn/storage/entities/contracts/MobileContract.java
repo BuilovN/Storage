@@ -1,6 +1,8 @@
 package org.builovn.storage.entities.contracts;
 
 import org.builovn.storage.entities.persons.Person;
+
+import javax.xml.bind.annotation.XmlElement;
 import java.time.LocalDate;
 
 /**
@@ -8,10 +10,13 @@ import java.time.LocalDate;
  */
 public class MobileContract extends Contract{
     /** Количество минут. */
+    @XmlElement(name = "minutes")
     private int minutes;
     /** Количество SMS. */
+    @XmlElement(name = "messages")
     private int messages;
     /** Количество ГБайт. */
+    @XmlElement(name = "gigaBytes")
     private int gigaBytes;
 
     /**
@@ -32,6 +37,8 @@ public class MobileContract extends Contract{
         this.messages = messages;
         this.gigaBytes = gigaBytes;
     }
+
+    public MobileContract(){};
 
     public int getMinutes() {
         return minutes;

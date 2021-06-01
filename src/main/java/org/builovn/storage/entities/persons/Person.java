@@ -1,26 +1,41 @@
 package org.builovn.storage.entities.persons;
 
+import org.builovn.storage.parsers.jaxb.LocalDateAdapter;
+
+import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalDate;
 import java.time.Period;
 
 /**
  * Класс, описывающий человека(Клиента).
  */
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name="person")
 public class Person {
+    @XmlTransient
     static int idCounter = 0;
     /** id человека. */
+    @XmlElement(name = "id")
     private int id;
     /** Имя человека. */
+    @XmlElement(name = "firstName")
     private String firstName;
     /** Фамилия человека. */
+    @XmlElement(name = "lastName")
     private String lastName;
     /** Отчество человека. */
+    @XmlElement(name = "patronymic")
     private String patronymic;
     /** Гендер человека {@link Gender}. */
+    @XmlElement(name = "gender")
     private Gender gender;
     /** Серия и номер паспорта. */
+    @XmlElement(name = "passportSerialNumber")
     private long passportSerialNumber;
     /** Дата рождения. */
+    @XmlJavaTypeAdapter(value= LocalDateAdapter.class)
+    @XmlElement(name = "dateOfBirth")
     private LocalDate dateOfBirth;
 
     /**
@@ -43,6 +58,8 @@ public class Person {
         this.passportSerialNumber = passportSerialNumber;
         this.dateOfBirth = dateOfBirth;
     }
+
+    public Person(){};
 
     public int getId() {
         return id;

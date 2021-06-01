@@ -1,20 +1,33 @@
 package org.builovn.storage.entities.contracts;
 
 import org.builovn.storage.entities.persons.Person;
+import org.builovn.storage.parsers.jaxb.LocalDateAdapter;
+
+import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalDate;
 
 /** Абстрактный класс, содержащий общую информацию для всех контрактов. */
+@XmlAccessorType(XmlAccessType.FIELD)
 public abstract class Contract {
+    @XmlTransient
     static int idCounter = 0;
     /** id контракта. */
+    @XmlElement(name = "id")
     private int id;
     /** Дата начала контракта. */
+    @XmlJavaTypeAdapter(LocalDateAdapter.class)
+    @XmlElement(name = "dateStart")
     private LocalDate dateStart;
     /** Дата окончания контракта. */
+    @XmlJavaTypeAdapter(LocalDateAdapter.class)
+    @XmlElement(name = "dateEnd")
     private LocalDate dateEnd;
     /** Номер контракта. */
+    @XmlElement(name = "number")
     private int number;
     /** Владелец контракта. */
+    @XmlElement(name = "owner")
     private Person owner;
 
     /**
@@ -32,6 +45,8 @@ public abstract class Contract {
         this.number = number;
         this.owner = owner;
     }
+
+    public Contract(){}
 
     public int getId() {
         return id;

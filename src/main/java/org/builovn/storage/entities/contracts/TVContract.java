@@ -1,6 +1,8 @@
 package org.builovn.storage.entities.contracts;
 
 import org.builovn.storage.entities.persons.Person;
+
+import javax.xml.bind.annotation.XmlElement;
 import java.time.LocalDate;
 
 /**
@@ -8,6 +10,7 @@ import java.time.LocalDate;
  */
 public class TVContract extends Contract {
     /** Пакет каналов {@link ChannelPackage} */
+    @XmlElement(name = "channelPackage")
     private ChannelPackage channelPackage;
 
     /**
@@ -23,6 +26,8 @@ public class TVContract extends Contract {
         super(id, dateStart, dateEnd, number, owner);
         this.channelPackage = channelPackage;
     }
+
+    public TVContract(){};
 
     public ChannelPackage getChannelPackage() {
         return channelPackage;
