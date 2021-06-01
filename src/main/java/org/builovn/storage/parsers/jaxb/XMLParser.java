@@ -11,11 +11,14 @@ import javax.xml.bind.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import org.apache.log4j.Logger;
 
 /**
  * Парсер репозитория из/в формат XML.
  */
 public class XMLParser{
+    private final static Logger logger = Logger.getLogger(XMLParser.class);
+
     /**
      * Парсит репозиторий в файл XML.
      * @param contractRepository репозиторий
@@ -27,7 +30,9 @@ public class XMLParser{
                     InternetContract.class, MobileContract.class, TVContract.class, Person.class);
             Marshaller mar= context.createMarshaller();
             mar.marshal(contractRepository, file);
-        } catch (JAXBException e){}
+        } catch (JAXBException e){
+            logger.error("Parsing repository to XML file error.");
+        }
     }
 
     /**
@@ -43,6 +48,7 @@ public class XMLParser{
             Unmarshaller unmarshaller = context.createUnmarshaller();
             return (ContractRepository) unmarshaller.unmarshal(file);
         } catch (JAXBException e) {
+            logger.error("Parsing XML file to repository error.");
             throw e;
         }
     }

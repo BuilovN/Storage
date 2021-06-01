@@ -17,10 +17,13 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import java.io.File;
 import java.io.IOException;
+import org.apache.log4j.Logger;
 
 
 public class Main {
-    public static void main(String[] args) throws JAXBException {
+    public static void main(String[] args){
+        Logger logger = Logger.getLogger(Main.class);
+
         String fileName = "java.csv";
         String workingDir = System.getProperty("user.dir");
         IParser<Contract> parser = new ContractParserCSV();
@@ -29,7 +32,7 @@ public class Main {
             Injector.inject(contractRepository);
             Injector.inject(parser);
         } catch (InjectorException e){
-            e.printStackTrace();
+
         }
 
         try {
@@ -41,7 +44,11 @@ public class Main {
         String XMLFileName = "contracts.xml";
         File file = new File(workingDir + "/files/" + XMLFileName);
         XMLParser.repositoryToXML(contractRepository, file);
-        ContractRepository contractRepositoryFromXML = XMLParser.XMLtoRepository(file);
+        try {
+            ContractRepository contractRepositoryFromXML = XMLParser.XMLtoRepository(file);
+        } catch (JAXBException e){
+            logger.info("Parsing XML error.");
+        }
 
     }
 }
